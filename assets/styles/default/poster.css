@@ -26,9 +26,17 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-#top, #progress, #bottom {
+#top {
   height: 10%;
   padding: 10px;
+}
+
+#progress {
+  height: 10%;
+}
+
+#bottom {
+  height: 5%;
 }
 
 #top > div, #progress > div, #bottom > div {
@@ -48,7 +56,7 @@ body {
   position: fixed;
   top: 8%;
   max-height: 2%;
-  
+
   /* Data Size and Location */
   width: 50%;
   left: 25%;
@@ -57,10 +65,10 @@ body {
 #middle {
   color: white;
   vertical-align: top;
-  top: 10%;
+  top: 9.5%;
   position: fixed;
-  height: 80%;
-  max-height: 80%;
+  height: 85%;
+  max-height: 85%;
   width:100%;
   background-position: 50% 50%;
   background-size: contain;
@@ -71,9 +79,13 @@ body {
   /* background-color: black; */
   bottom: 0;
   position: fixed;
-  max-height: 10%;
+  max-height: 8%;
   width: 100%;
   right: 0;
+}
+
+#bottom img {
+  width: 33.3%;
 }
 
 .newsimage {
