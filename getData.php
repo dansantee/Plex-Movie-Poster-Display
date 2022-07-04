@@ -49,75 +49,77 @@ if ($customImageEnabled == "Enabled") {
             plex_isPlaying_dataProcess();
 
             // If this matches our client IP or name, gather data
-            if (in_array($PLEX_PlayerAddress, $PLEX_Client_ARR) || in_array($PLEX_PlayerAddress, $PLEX_ClientName_ARR)) {
-                // Mode
-                    $isPlaying = true;
-                    $data['hasClient1'] = true;
-
-                // PMPD Settings
-                    $autoScaleTop = $nowShowingTopAutoScale;
-                    $topSelection = $nowShowingTop;
-                    $topSize = $nowShowingTopFontSize;
-                    $topColor = $nowShowingTopFontColor;
-                    $topFontEnabled = $nowShowingTopFontEnabled;
-                    $topFontID = $nowShowingTopFontID;
-
-                    $autoScaleBottom = $nowShowingBottomAutoScale;
-                    $bottomSelection = $nowShowingBottom;
-                    $bottomSize = $nowShowingBottomFontSize;
-                    $bottomColor = $nowShowingBottomFontColor;
-                    $bottomFontEnabled = $nowShowingBottomFontEnabled;
-                    $bottomFontID = $nowShowingBottomFontID;
-
-                    $mediaArt_Status = $nowShowingBackgroundArt;
-                    $FullScreenArtMode = $nowShowingFullScreenArt;
-                    $mediaArt_ShowTVThumb = $nowShowingShowTVThumb;
-
-                    if (!empty($nowShowingRefreshSpeed)) {
-                        $RefreshSpeed = $nowShowingRefreshSpeed;
+            if ($PLEX_SubType != 'clip') {
+                if (in_array($PLEX_PlayerAddress, $PLEX_Client_ARR) || in_array($PLEX_PlayerAddress, $PLEX_ClientName_ARR)) {
+                    // Mode
+                        $isPlaying = true;
+                        $data['hasClient1'] = true;
+    
+                    // PMPD Settings
+                        $autoScaleTop = $nowShowingTopAutoScale;
+                        $topSelection = $nowShowingTop;
+                        $topSize = $nowShowingTopFontSize;
+                        $topColor = $nowShowingTopFontColor;
+                        $topFontEnabled = $nowShowingTopFontEnabled;
+                        $topFontID = $nowShowingTopFontID;
+    
+                        $autoScaleBottom = $nowShowingBottomAutoScale;
+                        $bottomSelection = $nowShowingBottom;
+                        $bottomSize = $nowShowingBottomFontSize;
+                        $bottomColor = $nowShowingBottomFontColor;
+                        $bottomFontEnabled = $nowShowingBottomFontEnabled;
+                        $bottomFontID = $nowShowingBottomFontID;
+    
+                        $mediaArt_Status = $nowShowingBackgroundArt;
+                        $FullScreenArtMode = $nowShowingFullScreenArt;
+                        $mediaArt_ShowTVThumb = $nowShowingShowTVThumb;
+    
+                        if (!empty($nowShowingRefreshSpeed)) {
+                            $RefreshSpeed = $nowShowingRefreshSpeed;
+                        }
+    
+                        //Setup Scrolling Text Using jQuery Marquee (https://www.jqueryscript.net/animation/Text-Scrolling-Plugin-for-jQuery-Marquee.html)
+                        if ($nowShowingBottomScroll == 'Enabled') {
+                            $bottomScroll = TRUE;
+                            $scrollPrepend = "<div class='marquee' style='height: 100%'>";
+                            $scrollAppend = "</div>
+                            <script>
+                                $(function(){
+                                $('.marquee').marquee({
+                                    allowCss3Support: true,
+                                    css3easing: 'linear',
+                                    delayBeforeStart: 2000,
+                                    duration: 8000,
+                                    direction: 'up',
+                                    gap: 20,
+                                    startVisible: true
+                                });
+                                });
+                            </script>";
+                        } else {
+                            $bottomScroll = FALSE;
+                            $scrollPrepend = "";
+                            $scrollAppend = "";
+                        }
+    
+                        $mediaTitle = $clients['title']; // Default
+                        $mediaTagline = $clients['tagline']; // Default
+                        $mediaSummary = $clients['summary']; // Default
+                        $mediaArt = $clients['art']; // Default
+                        $mediaThumb = $clients['thumb']; // Default
+        
+                        // (strstr($clients['type'], "movie") // Notes for validation
+                        $viewGroup = $clients['type'];
+        
+                        plex_metadata_viewGroup();
+        
+                        plex_metadata_PROCESS();
+        
+                        //Progress Bar
+                        PMPD_CalcProgressInfo();
+                        PMPD_SetProgressBar();
                     }
-
-                    //Setup Scrolling Text Using jQuery Marquee (https://www.jqueryscript.net/animation/Text-Scrolling-Plugin-for-jQuery-Marquee.html)
-                    if ($nowShowingBottomScroll == 'Enabled') {
-                        $bottomScroll = TRUE;
-                        $scrollPrepend = "<div class='marquee' style='height: 100%'>";
-                        $scrollAppend = "</div>
-                        <script>
-                            $(function(){
-                            $('.marquee').marquee({
-                                allowCss3Support: true,
-                                css3easing: 'linear',
-                                delayBeforeStart: 2000,
-                                duration: 8000,
-                                direction: 'up',
-                                gap: 20,
-                                startVisible: true
-                            });
-                            });
-                        </script>";
-                    } else {
-                        $bottomScroll = FALSE;
-                        $scrollPrepend = "";
-                        $scrollAppend = "";
-                    }
-
-                $mediaTitle = $clients['title']; // Default
-                $mediaTagline = $clients['tagline']; // Default
-                $mediaSummary = $clients['summary']; // Default
-                $mediaArt = $clients['art']; // Default
-                $mediaThumb = $clients['thumb']; // Default
-
-                // (strstr($clients['type'], "movie") // Notes for validation
-                $viewGroup = $clients['type'];
-
-                plex_metadata_viewGroup();
-
-                plex_metadata_PROCESS();
-
-                //Progress Bar
-                PMPD_CalcProgressInfo();
-                PMPD_SetProgressBar();
-            }
+                }
         }
     }
 

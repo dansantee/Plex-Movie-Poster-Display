@@ -122,7 +122,13 @@ $pmpImageSpeed = ($currentRefreshSpeed * 1000);
                                 $('#' + key).css('background-image', val);
                                 break;
                             case "mediaArt":
-                                $('.' + key).css('background-image', val);
+                                $('.' + key).css('opacity', 0);
+                                setTimeout(() => {
+                                    $('.' + key).css('background-image', val);    
+                                }, 2000);
+                                setTimeout(() => {
+                                    $('.' + key).css('opacity', 0.8);
+                                }, 4000);
                                 break;
                             case 'fullScreenMode':
                                 var SetMode = val;
@@ -153,7 +159,7 @@ $pmpImageSpeed = ($currentRefreshSpeed * 1000);
 </head>
 
 <body>
-    <div class="mediaArt"></div>
+    <div class="mediaArt" style="transition: opacity 2s")></div>
 
     <div id="container">
         <div id="alert" align="center" class="center"></div>

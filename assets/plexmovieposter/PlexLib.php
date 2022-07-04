@@ -1179,11 +1179,13 @@ function plex_isPlaying_dataProcess() {
     // Global Variables - Output
     global $PLEX_PlayerAddress, $PLEX_Client_ARR;
     global $PLEX_PlayerTitle, $PLEX_ClientName_ARR;
+    global $PLEX_SubType;
 
     $PLEXMetadata_checkType = $clients['type']; // Clip (eg. B-Roll)
     pmp_Logging("PLEX_getMediaMetadata", "plex_isPlaying_dataProcess @ Type: $PLEXMetadata_checkType");
 
     $PLEXMetadata_checkSubtype = $clients['subtype']; // Trailer
+    $PLEX_SubType = $PLEXMetadata_checkSubtype;
     pmp_Logging("PLEX_getMediaMetadata", "plex_isPlaying_dataProcess @ SubType: $PLEXMetadata_checkSubtype");
     
     switch ($PLEXMetadata_checkType) {
