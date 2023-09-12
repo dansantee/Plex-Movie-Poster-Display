@@ -1,0 +1,125 @@
+This is a summary of the information contained in the original blog, with my own notes, in the case that it should become unavailable. I don't think  it's complete, so I'll update it if I need to reload in the future.
+
+PMDP scrapes http://IP_ADDRESS_OF_PLEX_SERVER>:32400/status/sessions and displays the poster, current progress, and description of the currently playing movie or TV show on a screen. If the client is not playing any media the script shows random movie posters from the Plex Server.
+
+Install a Raspberry Pi image. I'm using Bullseye on an RPi 3b for compatibility reasons. I've added a fade feature to the poster which makes a 3b the minimum I'd recommend.
+
+Enable wireless and SSH if desired.
+
+Install Required software packages
+
+sudo apt update && sudo apt upgrade -y
+sudo apt-get install nginx php-fpm php-xml php-curl git unclutter -y
+
+Setup PHP with NGINX
+
+Update: Remove index.nginx-debian.html from config. Sometimes when Nginx is upgraded it would load the default index.nginx-debian.html Nginx file (not the index.php file we want to load).
+
+Add index.php to index line (Around line 44)
+Before:
+index index.html index.htm index.nginx-debian.html
+After:
+index index.html index.htm index.php;
+
+cd /etc/nginx
+sudo nano sites-enabled/default
+index index.html index.htm index.php;
+
+Scroll Down, uncomment the following lines, and save the file.
+
+location ~ \.php$ {
+  include snippets/fastcgi-php.conf;
+  fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+}
+Save Changes.
+
+CTRL + O to write changes
+CTRL + X to exit
+Increase NGINX File Size Limitation
+By default NGINX limits the file size you can upload (I think it defaults to 1MB). I recommend increasing the allowed file size so you can upload larger custom images.
+
+sudo nano /etc/nginx/nginx.conf
+
+- Add the follow in the http section after types_hash_max_size 2048;
+client_max_body_size 25M;
+
+- Save Changes.
+CTRL + O to write changes
+CTRL + X to exit
+Increase PHP upload_max_filesize.
+sudo nano /etc/php/7.3/fpm/php.ini
+
+- Change upload_max_filesize (Around line 845)
+upload_max_filesize = 25M
+
+- Save File
+- Reboot Raspberry Pi (Might not need to reboot, but I had to for change to work).
+Setup PHP information file.
+cd /var/www/html/
+sudo mv index.nginx-debian.html index.php
+sudo nano index.php
+  - Add <?php echo phpinfo(); ?> to top of file.
+  - Save Changes.
+CTRL + O to write changes
+CTRL + X to exit
+Restart / Start NGINX and Test
+sudo /etc/init.d/nginx reload
+Opening a browser to http://<ip_address_of_your_raspberry_pi> . If everything is installed correctly. you should see the php information screen.
+
+Clone Dev Branch (Future v3)
+cd /your_preferred_git_directory
+sudo git clone --branch dev https://github.com/MattsShack/Plex-Movie-Poster-Display.git
+cd Plex-Movie-Poster-Display
+sudo cp -R * /var/www/html
+  - You can replace index.php used for in the testing above.
+Fix Permissions
+sudo chmod -R 774 /var/www/html/
+sudo chown -R pi:www-data /var/www/html/
+
+First Time Use
+Open Browser to http://<ip_of_raspberry_pi>/settings/login.php and login with username admin and password password1 .
+
+Once logged into the admin page, you will need to update the Plex Server IP, Plex Token, and Plex Movie Sections in “Server Configuration” before PMDP will work properly.
+
+Important: The Movie Sections input is expecting the ID (#) of the Plex library you want PMPD to use for posters. You can add multiple sections as long as they are comma separated and contain no spaces.
+
+How to find your Plex sections ID(s):
+Open your Plex web interface via the browser of your choice.
+Select the desired section(s) from menu on the left. (Example: Movies)
+Once the section is loaded… Look towards the end of the URL in the browser. You should see something like “source=2”.
+
+Misc Raspberry Pi OS Steps
+Full Buster / Raspberry OS Upgrade:
+
+sudo apt update
+sudo apt full-upgrade
+sudo reboot
+Disable Screen Blanking: 
+
+Click on the Raspberry Pi (Menu) icon. Select Preferences, Raspberry Pi Configuration, and then the Display tab. Choose Disable next to Screen Blanking.
+
+Enable SSH:
+
+Click on the Raspberry Pi (Menu) icon. Select Preferences, Raspberry Pi Configuration, and then the Interfaces tab. Choose Enable next to SSH.
+
+Rotate Screen:
+
+Click on the Raspberry Pi (Menu) icon. Select Preferences, and Screen Configuration. Right click on the screen you want to rotate and select orientation.
+
+Chromium Kiosk Mode on Startup
+Raspbian Buster / Raspberry OS: 
+
+With Raspbian Buster / Raspberry OS I was not able to use the .desktop file method to auto start Chromium. Instead I had to create a directory and file. I am not sure if this method needs unclutter installed so I left it in the instructions.
+
+sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
+
+- Add the following 
+/usr/bin/chromium-browser --kiosk  --disable-restore-session-state http://[PMPD IP Address]/index.php
+
+-Save File
+CTRL + O to write changes
+CTRL + X to exit
+
+-Reboot to Test
+
+This is the end of the blog steps. I had to change a few things for my installation, including how the kiosk mode worked and force enable HDMI.
