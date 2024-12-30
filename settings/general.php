@@ -1,14 +1,14 @@
 <?php
 //For feedback, suggestions, or issues please visit https://www.mattsshack.com/plex-movie-poster-display/
-include_once('../assets/plexmovieposter/loginCheck.php');
-include_once '../config.php';
-include_once '../assets/plexmovieposter/CommonLib.php';
+include('../assets/plexmovieposter/loginCheck.php');
+include '../config.php';
+include '../assets/plexmovieposter/CommonLib.php';
 require_once '../assets/plexmovieposter/tools.php';
-include_once '../assets/plexmovieposter/CacheLib.php';
-include_once '../assets/plexmovieposter/setData.php';
-include_once '../assets/plexmovieposter/importExportLib.php';
-include_once 'PMPInfo.php';
-include_once 'PMPReleaseNotes.php';
+include '../assets/plexmovieposter/CacheLib.php';
+include '../assets/plexmovieposter/setData.php';
+include '../assets/plexmovieposter/importExportLib.php';
+include 'PMPInfo.php';
+include 'PMPReleaseNotes.php';
 
 $CurrentPage = basename(__FILE__);
 

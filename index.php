@@ -1,11 +1,11 @@
 <?php
 //For feedback, suggestions, or issues please visit https://www.mattsshack.com/plex-movie-poster-display/
-include_once('config.php');
-include_once('assets/plexmovieposter/tokenCheck.php');
-include_once 'assets/plexmovieposter/CommonLib.php';
-include_once 'assets/plexmovieposter/tools.php';
-include_once 'status.php';
-include_once 'statusRefresh.php';
+include('config.php');
+include('assets/plexmovieposter/tokenCheck.php');
+include 'assets/plexmovieposter/CommonLib.php';
+include 'assets/plexmovieposter/tools.php';
+include 'status.php';
+include 'statusRefresh.php';
 
 // $pmpImageSpeed = ($pmpImageSpeed * 1000);
 if (empty($currentRefreshSpeed)) {

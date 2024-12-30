@@ -1,6 +1,6 @@
 <?php
 function PMPReleaseNotesDisplay() {
-    include_once 'PMPInfo.php';
+    include 'PMPInfo.php';
 
     // echo '<div class="modal-backdrop fade in"></div>';
     // echo '<div class="modal fade in" aria-hidden="false" style="display: block;">';

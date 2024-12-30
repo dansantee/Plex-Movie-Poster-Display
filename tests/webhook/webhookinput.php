@@ -1,7 +1,7 @@
 <?php
-	include_once '../../assets/plexmovieposter/PlexLib.php';
-	include_once '../../assets/plexmovieposter/CacheLib.php';
-	include_once '../../assets/plexmovieposter/tools.php';
+	include '../../assets/plexmovieposter/PlexLib.php';
+	include '../../assets/plexmovieposter/CacheLib.php';
+	include '../../assets/plexmovieposter/tools.php';
 
 	$plex_webhook_data_raw = file_get_contents('php://input');
 

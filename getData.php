@@ -1,12 +1,12 @@
 <?php
 //For feedback, suggestions, or issues please visit https://www.mattsshack.com/plex-movie-poster-display/
-include_once 'config.php';
-include_once 'status.php';
-include_once 'assets/plexmovieposter/tools.php';
-include_once 'assets/plexmovieposter/CacheLib.php';
-include_once 'assets/plexmovieposter/PMPDLib.php';
-include_once 'assets/plexmovieposter/PlexLib.php';
-include_once 'assets/plexmovieposter/getPoster.php';
+include 'config.php';
+include 'status.php';
+include 'assets/plexmovieposter/tools.php';
+include 'assets/plexmovieposter/CacheLib.php';
+include 'assets/plexmovieposter/PMPDLib.php';
+include 'assets/plexmovieposter/PlexLib.php';
+include 'assets/plexmovieposter/getPoster.php';
 
 $results = Array();
 $mediaArr = Array();

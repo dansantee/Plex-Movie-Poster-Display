@@ -1,6 +1,6 @@
 <?php
-include_once 'config.php';
-include_once 'assets/plexmovieposter/tools.php';
+include 'config.php';
+include '/assets/plexmovieposter/tools.php';
 
 // Hot Fix. Security!
 // This will grab the image server side.

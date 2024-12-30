@@ -1,7 +1,7 @@
 <?php
 //For feedback, suggestions, or issues please visit https://www.mattsshack.com/plex-movie-poster-display/
-include_once '../assets/plexmovieposter/CommonLib.php';
-include_once '../assets/plexmovieposter/setData.php';
+include '../assets/plexmovieposter/CommonLib.php';
+include '../assets/plexmovieposter/setData.php';
 
 $msg = NULL;
 // $returnPageData = $_GET['returnPage'];
@@ -9,7 +9,7 @@ $msg = NULL;
 $returnPage = "general.php";
 
 if (isset($_POST['username']) && !empty($_POST['password'])) {
-    include_once '../config.php';
+    include '../config.php';
     if (($_POST['username'] == $pmpUsername) && ($_POST['password'] == $pmpPassword)) {
         session_start();
         $_SESSION['username'] = $pmpUsername;
