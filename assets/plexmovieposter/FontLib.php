@@ -393,7 +393,7 @@ function dropdownFontFamily($searchfor, $fontfamilyRAW, $fieldID = "customTopFon
 }
 
 function dropdownFontFamilySub($fontfamily, $fieldID, $showFontSample = FALSE) {
-    include '../config.php';
+    include_once '../config.php';
 
     if ($showFontSample == TRUE) {
         $HTMLStyle = "style=\"font-family: '$fontfamily';\"";

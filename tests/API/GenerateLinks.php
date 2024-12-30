@@ -1,6 +1,6 @@
 <?php
     // https://{IP or URL}:32400/library/sections/$LibraryID/$MediaStatusType?X-Plex-Token={TOKEN HERE}
-    include '../../config.php';
+    include_once '../../config.php';
 
     // Settings
         $LibraryID = 1;

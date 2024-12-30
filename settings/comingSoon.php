@@ -1,12 +1,12 @@
 <?php
 //For feedback, suggestions, or issues please visit https://www.mattsshack.com/plex-movie-poster-display/
 include_once('../assets/plexmovieposter/loginCheck.php');
-include '../config.php';
-include '../assets/plexmovieposter/CommonLib.php';
+include_once '../config.php';
+include_once '../assets/plexmovieposter/CommonLib.php';
 require_once '../assets/plexmovieposter/tools.php';
-include '../assets/plexmovieposter/CacheLib.php';
-include '../assets/plexmovieposter/setData.php';
-include '../assets/plexmovieposter/FontLib.php';
+include_once '../assets/plexmovieposter/CacheLib.php';
+include_once '../assets/plexmovieposter/setData.php';
+include_once '../assets/plexmovieposter/FontLib.php';
 
 //Save Configuration
 if (!empty($_POST['saveConfig'])) {

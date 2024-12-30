@@ -1,7 +1,7 @@
 <?php
 //For feedback, suggestions, or issues please visit https://www.mattsshack.com/plex-movie-poster-display/
-include '../assets/plexmovieposter/CommonLib.php';
-include '../assets/plexmovieposter/setData.php';
+include_once '../assets/plexmovieposter/CommonLib.php';
+include_once '../assets/plexmovieposter/setData.php';
 
 $msg = NULL;
 // $returnPageData = $_GET['returnPage'];

@@ -1,6 +1,6 @@
 <?php 
-include '../../assets/plexmovieposter/tools.php';
-include '../../assets/plexmovieposter/CacheLib.php';
+include_once '../../assets/plexmovieposter/tools.php';
+include_once '../../assets/plexmovieposter/CacheLib.php';
 $path = "../../cache/logs";
 
 // -------------------------

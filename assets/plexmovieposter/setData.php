@@ -3,7 +3,7 @@
 function ghostData($configPage) {
     // TODO:
     // - Cleanup and set as an array and loop to simplify the processing of ghost data.
-    include '../config.php';
+    include_once '../config.php';
 
     $formIndent = "\t\t\t\t\t\t\t\t\t";
 

@@ -1,8 +1,8 @@
 <?php
 
 function pmp_Logging($LogType = "Generic", $LogMSG = "", $DebugMSG = FALSE, $FeedFunction = "N/A") {
-    include 'sysConfig.php';
-    // include 'CacheLib.php';
+    include_once 'sysConfig.php';
+    // include_once 'CacheLib.php';
     // Debug URL:
 
     // Usage: pmp_Logging("importFiles", "$LogMSG_Header Destination FullName: $destination_FullName");
