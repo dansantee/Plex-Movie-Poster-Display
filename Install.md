@@ -9,9 +9,15 @@ Using a RPi Zero 2 W
 Install Bookworm 64 Lite using Raspberry Pi Imager with WiFi and SSH setup
 sudo apt update && sudo apt upgrade -y
 
-sudo apt install apache2 nginx php8.2 libapache2-mod-php8.2 \
- php8.2-fpm php8.2-xml php8.2-mbstring php8.2-mysql php8.2-curl \
- php8.2-gd php8.2-zip git unclutter -y
+#Install PHP7.4
+sudo apt -y install lsb-release apt-transport-https ca-certificates 
+sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+sudo apt update
+
+sudo apt install apache2 nginx php7.4 libapache2-mod-php7.4 \
+ php7.4-fpm php7.4-xml php7.4-mbstring php7.4-mysql php7.4-curl \
+ php7.4-gd php7.4-zip git unclutter -y
 
 sudo a2enmod proxy_fcgi setenvif
 sudo a2enconf php8.2-fpm
