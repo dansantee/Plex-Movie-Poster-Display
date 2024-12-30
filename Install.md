@@ -17,7 +17,7 @@ sudo apt update
 
 sudo apt install apache2 nginx php7.4 libapache2-mod-php7.4 \
  php7.4-fpm php7.4-xml php7.4-mbstring php7.4-mysql php7.4-curl \
- php7.4-gd php7.4-zip git unclutter -y
+ php7.4-gd php7.4-zip git -y
 
 sudo a2enmod proxy_fcgi setenvif
 sudo a2enconf php8.2-fpm
@@ -91,44 +91,35 @@ Once the section is loaded… Look towards the end of the URL in the browser. Yo
 
 
 
+#Kiosk Mode
+
+Use raspi-config to enable autologin
+
+sudo apt install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox chromium
+
+#Bookworm Only
+sudo apt install gldriver-test
+sudo nano /etc/xdg/openbox/environment
+export DISPLAY=':0.0'
+xrandr --output HDMI0 --rotate right
+
+sudo nano /etc/xdg/openbox/autostart
+
+  # Disable any form of screen saver / screen blanking / power management
+  xset s off
+  xset s noblank
+  xset -dpms
+
+  # Allow quitting the X server with CTRL-ATL-Backspace
+  setxkbmap -option terminate:ctrl_alt_bksp
+
+  # Start Chromium in kiosk mode
+  sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
+  sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
+  chromium --no-memcheck --disable-infobars --kiosk http://movieposter
+
+sudo nano .bash_profile
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 
 
 
-
-
-
-Misc Raspberry Pi OS Steps
-Full Buster / Raspberry OS Upgrade:
-
-sudo apt update
-sudo apt full-upgrade
-sudo reboot
-Disable Screen Blanking: 
-
-Click on the Raspberry Pi (Menu) icon. Select Preferences, Raspberry Pi Configuration, and then the Display tab. Choose Disable next to Screen Blanking.
-
-Enable SSH:
-
-Click on the Raspberry Pi (Menu) icon. Select Preferences, Raspberry Pi Configuration, and then the Interfaces tab. Choose Enable next to SSH.
-
-Rotate Screen:
-
-Click on the Raspberry Pi (Menu) icon. Select Preferences, and Screen Configuration. Right click on the screen you want to rotate and select orientation.
-
-Chromium Kiosk Mode on Startup
-Raspbian Buster / Raspberry OS: 
-
-With Raspbian Buster / Raspberry OS I was not able to use the .desktop file method to auto start Chromium. Instead I had to create a directory and file. I am not sure if this method needs unclutter installed so I left it in the instructions.
-
-sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
-
-- Add the following 
-/usr/bin/chromium-browser --kiosk  --disable-restore-session-state http://[PMPD IP Address]/index.php
-
--Save File
-CTRL + O to write changes
-CTRL + X to exit
-
--Reboot to Test
-
-This is the end of the blog steps. I had to change a few things for my installation, including how the kiosk mode worked and force enable HDMI.
